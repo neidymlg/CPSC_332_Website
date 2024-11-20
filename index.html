@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text Box and Submit Button</title>
+  </head>
+  <body>
+    <h1>Enter Your Information</h1>
+    <form action="database.php" method="POST"> //replace with actual.php
+      <label for="inputField">Enter a Value:</label><br />
+      <input
+        type="text"
+        id="inputField"
+        name="query"
+        placeholder="Type something..."
+        required
+      /><br /><br />
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>
