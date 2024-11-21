@@ -19,7 +19,7 @@
 
         if($formType == "FORM_VALUE"){
             $query = "SELECT P.Title, S.Classroom, S.MeetingDays, S.BeginTime, S.EndTime FROM Professors P 
-                      JOIN Section S ON P.SSN = S.PSSN WHERE P.SSN = " .$_POST[];
+                      JOIN Section S ON P.SSN = S.PSSN WHERE P.SSN = " .$_POST["sno"];
             $result = $conn->query($query);
 
             if($result->num_rows > 0){
