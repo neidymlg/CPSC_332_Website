@@ -7,15 +7,17 @@
   </head>
   <body>
     <h1>Enter Your Information</h1>
-    <form action="database.php" method="POST"> //replace with actual.php
+    <form action="process.php" method="POST"> //replace with actual.php
       <label for="inputField">Enter a Value:</label><br />
       <input
         type="text"
         id="inputField"
-        name="query"
+        name="sno"
         placeholder="Type something..."
         required
-      /><br /><br />
+      />
+    <br /><br />
+      <input type="hidden" name="form_type" value="FORM_VALUE">
       <button type="submit">Submit</button>
     </form>
   </body>

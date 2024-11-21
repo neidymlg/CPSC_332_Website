@@ -1,0 +1,214 @@
+CPSC 332 Database
+CREATE database College;
+use College;
+
+CREATE TABLE Professors(
+	SSN VARCHAR(9) PRIMARY KEY,
+	PName VARCHAR(100),
+	Title VARCHAR(50),
+	Salary DECIMAL(8, 2),
+	Sex CHAR(1) CHECK (Sex IN ('F', 'M', 'O')),
+	DigitNum VARCHAR(10),
+	AreaCode VARCHAR(5),
+	StreetAddr VARCHAR(50),
+	State VARCHAR(20),
+	City VARCHAR(50),
+	ZipCode VARCHAR(5)
+);
+
+insert into Professors values ('123456789', 'Marcos Rogers', 'Professor / Department Chair', 203000.00, 'M', '692-1235', '213', '7892 Barton Spur Apt. 037', 'New Hampshire', 'Lake Jarrett', '31625');
+
+insert into Professors values ('511318142', 'Annabelle Batz', 'Professor / Department Chair', '205000.23', 'F', '869-3878', '804', '93655 Konopelski Turnpike Suite 736', 'Nebraska', 'Mosciskitown','91345');
+
+insert into Professors values('767960657', 'Oda Little', 'Lecturer', 70200.10, 'O', '202-6452', '626', '9917 Carolyne Corners Apt. 563', 'Maine', 'Port Perrystad', '00856');
+
+CREATE TABLE PDegrees(
+	PSSN VARCHAR(9), 
+	CD VARCHAR(100),
+	PRIMARY KEY (PSSN, CD),
+	FOREIGN KEY (PSSN) REFERENCES Professors(SSN)
+);
+
+insert into PDegrees values ('123456789', 'Bachelor of Science in Computer Science');
+insert into PDegrees values ('123456789', 'Master of Science in Computer Science');
+insert into PDegrees values ('123456789', 'Doctor of Computer Science');
+
+insert into PDegrees values ('511318142', 'Bachelor of Science in Mechanical Engineering');
+insert into PDegrees values ('511318142', 'Doctor of Mechanical Engineering');
+
+insert into PDegrees values ('767960657', 'Bachelor of Science in Computer Science');
+
+CREATE TABLE Department(
+	ID INT UNSIGNED PRIMARY KEY, 
+	PSSN VARCHAR(9),
+	DNAME VARCHAR(50),
+	PhoneNum VARCHAR(15),
+	Location VARCHAR(100),
+	FOREIGN KEY (PSSN) REFERENCES Professors(SSN)
+);
+
+insert into Department values (1021, '123456789', 'Computer Science', '+1-754-644-3729', '5120 Farrell Divide Suite 729, Port Madgefort, New Jersey');
+insert into Department values (1025, '511318142', 'Mechanical Engineering', '+1-754-644-3722', '5121 Farrell Divide Suite 729, Port Madgefort, New Jersey');
+
+CREATE TABLE Course(
+	ID INT UNSIGNED PRIMARY KEY,
+	DID INT UNSIGNED, 
+	Title VARCHAR(50),
+	Units INT UNSIGNED, 
+	Textbook VARCHAR(100),
+	FOREIGN KEY (DID) REFERENCES Department(ID)
+);
+
+insert into Course values (2892, 1021, 'Algorithm Engineering', 3, 'Algorithm Engineering: Bridging the Gap Between Algorithm Theory and Practice');
+insert into Course values (2895, 1021, 'File Structures and Database Systems', 3, 'Database Systems: Design, Implementation, & Management');
+insert into Course values (1492, 1021, 'Data Structures', 3, 'Data Structures and Algorithms Using Java');
+insert into Course values (1496, 1021, 'Computer Organization and Assembly Language', 2, 'Computer Organization and Assembly Language Programming: For IBM PC''s and Compatibles');
+insert into Course values (3384, 1025, 'Machine Design', 4, 'The elements of machine design');
+
+CREATE TABLE PreReq(
+	CID INT UNSIGNED,
+	REQID INT UNSIGNED,
+	PRIMARY KEY (CID, REQID)
+);
+insert into PreReq values (2892, 1492);
+insert into PreReq values (2892, 1496);
+insert into PreReq values (2895, 1492);
+
+CREATE TABLE Section(
+	ID INT UNSIGNED, 
+	CID INT UNSIGNED,
+	PSSN VARCHAR(9),
+	Classroom VARCHAR(10),
+	BeginTime TIME,
+	EndTime TIME,
+	MeetingDays SET ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'), 
+	Num_Seats INT UNSIGNED,
+	PRIMARY KEY (ID, CID),
+	FOREIGN KEY (CID) REFERENCES Course(ID),
+	FOREIGN KEY (PSSN) REFERENCES Professors(SSN)
+);
+
+insert into Section values (281, 2892, '123456789', 'CPSC-301', '11:00', '13:00', 'Monday,Tuesday', 30);
+insert into Section values (129, 1492, '767960657', 'ENGR-220', '15:40', '16:40', 'Wednesday,Thursday,Saturday', 25);
+insert into Section values (193, 2892, '767960657', 'HUM-129', '9:10', '12:00', 'Saturday', 50);
+insert into Section values (227, 2892, '511318142', 'ARTS-101', '8:30', '10:00', 'Friday', 15);
+insert into Section values (283, 3384, '511318142', 'ENGR-303', '11:30', '2:00', 'Tuesday,Friday', 90);
+insert into Section values (136, 3384, '767960657', 'ENGR-104', '17:00', '20:00', 'Wednesday,Thursday', 20);
+insert into Section values (291, 1496, '767960657', 'CPSC-111', '6:45', '8:20', 'Saturday', 31);
+insert into Section values (213, 1496, '123456789', 'ENGR-220', '6:50', '8:50', 'Monday', 22);
+
+CREATE TABLE StudentRecords(
+	CCWID INT UNSIGNED PRIMARY KEY,
+	DID INT UNSIGNED, 
+	PhoneNum VARCHAR(15),
+	Address VARCHAR(100),
+	FN VARCHAR(25),
+	LN VARCHAR(25)
+);
+
+insert into StudentRecords values (81981047, 1021, '+1.425.691.4355', '2984 Jerrod Cliff, Moenville, South Dakota', 'Roscoe', 'Huels');
+insert into StudentRecords values (88148826, 1021, '+1.971.577.4448', '5194 Considine Loaf Suite 744, North Marjory, Kentucky', 'London', 'Bernhard');
+insert into StudentRecords values (85149255, 1021, '254-847-8018', '89183 Maya Bypass, East Bernieberg, Kentucky', 'Corine', 'Fisher');
+insert into StudentRecords values (84983639, 1021, '(251) 519-7802', '1691 Destin Inlet, Port Kailynhaven, Indiana', 'Trisha', 'Wiegand');
+insert into StudentRecords values (86925690, 1025, '+1.973.208.6873', '82290 Bins Crossroad Apt. 109, Aniyahshire, New Hampshire', 'Christopher', 'Haley');
+insert into StudentRecords values (89840594, 1025, '414-427-4458', '75698 Werner Vista, South Amos, Connecticut', 'Gerald', 'Dibbert');
+insert into StudentRecords values (80279364, 1021, '1-251-937-7114', '7391 Bailey Street, Creminland, Kansas', 'Lawrence', 'Ledner');
+insert into StudentRecords values (82715085, 1021, '916-664-7758', '291 Hilma Parkways, Lake Angela, South Dakota', 'Jaycee', 'Swift');
+	
+CREATE TABLE Enrollment(
+	SID INT UNSIGNED,
+	CID INT UNSIGNED,
+	SCCWID INT UNSIGNED,
+	Grade VARCHAR(2) CHECK (Grade IN ('A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F', 'IP')),
+	PRIMARY KEY (SID, CID, SCCWID),
+	FOREIGN KEY (SID, CID) REFERENCES Section(ID, CID),
+	FOREIGN KEY (SCCWID) REFERENCES StudentRecords(CCWID)
+);
+
+insert into Enrollment values (281, 2892, 81981047, 'F');
+insert into Enrollment values (193, 2892, 81981047, 'D-');
+insert into Enrollment values (227, 2892, 81981047, 'B-');
+insert into Enrollment values (129, 1492, 81981047, 'A+');
+insert into Enrollment values (129, 1492, 88148826, 'C+');
+
+insert into Enrollment values (283, 3384, 86925690, 'IP');
+insert into Enrollment values (283, 3384, 89840594, 'A-');
+insert into Enrollment values (136, 3384, 89840594, 'B+');
+insert into Enrollment values (283, 3384, 81981047, 'C-');
+insert into Enrollment values (136, 3384, 86925690, 'A+');
+
+insert into Enrollment values (291, 1496, 84983639, 'A-');
+insert into Enrollment values (291, 1496, 80279364, 'C+');
+insert into Enrollment values (213, 1496, 85149255, 'F');
+insert into Enrollment values (129, 1492, 84983639, 'D');
+insert into Enrollment values (129, 1492, 80279364, 'D+');
+
+insert into Enrollment values (129, 1492, 85149255, 'B+');
+insert into Enrollment values (291, 1496, 86925690, 'C-');
+insert into Enrollment values (291, 1496, 82715085, 'B');
+insert into Enrollment values (129, 1492, 86925690, 'A-');
+insert into Enrollment values (129, 1492, 82715085, 'A');
+
+insert into Enrollment values (227, 2892, 84983639, 'B-');
+
+CREATE TABLE Minor(
+	DID INT UNSIGNED,
+	SCCWID INT UNSIGNED,
+	PRIMARY KEY (DID, SCCWID),
+	FOREIGN KEY (DID) REFERENCES Department(ID),
+	FOREIGN KEY (SCCWID) REFERENCES StudentRecords(CCWID)
+);
+insert into Minor values (1025, 82715085);
+insert into Minor values (1021, 86925690);
+
+
+
+For the professors:
+a. Given the social security number of a professor, list the titles, classrooms, meeting
+days and time of his/her classes.
+
+REPLACE SSN NUMBER  (IN WHERE STATEMENT) TO QUERY NEW VALUES 
+
+SELECT P.Title, S.Classroom, S.MeetingDays, S.BeginTime, S.EndTime
+FROM Professors P
+JOIN Section S ON P.SSN = S.PSSN
+WHERE P.SSN = '767960657';
+
+b. Given a course number and a section number, count how many students get each
+distinct grade, i.e. ‘A’, ‘A-’, ‘B+’, ‘B’, ‘B-’, etc.
+
+REPLACE CID and SID NUMBER  (IN WHERE STATEMENT) TO QUERY NEW VALUES 
+
+SELECT E.SID, E.Grade, Count(*) AS 'Grade Count'
+FROM  Enrollment E
+WHERE E.CID = '1492' AND E.SID = '129'
+GROUP BY E.Grade
+ORDER BY E.Grade;
+
+For the students:
+a. Given a course number, list the sections of the course, including the classrooms, the
+meeting days and time, and the number of students enrolled in each section.
+REPLACE C.ID NUMBER (IN WHERE STATEMENT) TO QUERY NEW VALUES 
+
+SELECT S.ID, S.Classroom, S.MeetingDays, S.BeginTime, S.EndTime, COUNT(*) AS 'Student Count'
+FROM Course C
+JOIN Section S ON S.CID = C.ID
+JOIN Enrollment E ON E.SID = S.ID
+WHERE C.ID = '2892'
+GROUP BY S.ID;
+
+
+b. Given the campus wide ID of a student, list all courses the student took and the
+grades.
+REPLACE CCWID NUMBER  (IN WHERE STATEMENT) TO QUERY NEW VALUES 
+
+SELECT E.CID, C.Title, E.Grade
+FROM StudentRecords SR
+JOIN Enrollment E ON E.SCCWID = SR.CCWID
+JOIN COURSE C ON C.ID = E.CID
+WHERE CCWID = '81981047';
+
+
+
+
+
