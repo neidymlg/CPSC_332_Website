@@ -6,19 +6,31 @@
     <title>Text Box and Submit Button</title>
   </head>
   <body>
+
     <h1>Enter Your Information</h1>
-    <form action="process.php" method="POST"> //replace with actual.php
-      <label for="inputField">Enter a Value:</label><br />
-      <input
-        type="text"
-        id="inputField"
-        name="sno"
-        placeholder="Type something..."
-        required
-      />
-    <br /><br />
-      <input type="hidden" name="form_type" value="FORM_VALUE">
+
+    <!--For the professors-->
+    <!--For the professors:a. Given the social security number of a professor, list the titles, classrooms, meeting
+    days and time of his/her classes.-->
+    <form action="process.php" method="POST"> 
+      <label for="inputField">Enter Professor SSN:</label><br />
+      <input type="text" id="inputField" name="ssn"/>
+      <br /><br />
+      <input type="hidden" name="form_type" value="Professor_Info">
       <button type="submit">Submit</button>
     </form>
+
+    <!--For the professors:b. Given a course number and a section number, count how many students get each
+distinct grade, i.e. ‘A’, ‘A-’, ‘B+’, ‘B’, ‘B-’, etc.-->
+    <form action="process.php" method="POST"> 
+      <label for="inputField">Enter Course Number:</label><br />
+      <input type="text" id="inputField" name="cno"/><br />
+      <label for="inputField">Enter Section Number:</label><br />
+      <input type="text" id="inputField" name="sno"/>
+      <br /><br />
+      <input type="hidden" name="form_type" value="P_Grade_Count">
+      <button type="submit">Submit</button>
+    </form>
+
   </body>
 </html>

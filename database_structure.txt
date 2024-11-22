@@ -179,7 +179,7 @@ distinct grade, i.e. ‘A’, ‘A-’, ‘B+’, ‘B’, ‘B-’, etc.
 
 REPLACE CID and SID NUMBER  (IN WHERE STATEMENT) TO QUERY NEW VALUES 
 
-SELECT E.SID, E.Grade, Count(*) AS 'Grade Count'
+SELECT E.Grade, Count(*) AS 'Grade Count'
 FROM  Enrollment E
 WHERE E.CID = '1492' AND E.SID = '129'
 GROUP BY E.Grade
@@ -195,7 +195,8 @@ FROM Course C
 JOIN Section S ON S.CID = C.ID
 JOIN Enrollment E ON E.SID = S.ID
 WHERE C.ID = '2892'
-GROUP BY S.ID;
+GROUP BY S.ID, S.Classroom, S.MeetingDays, S.BeginTime, S.EndTime;
+
 
 
 b. Given the campus wide ID of a student, list all courses the student took and the
@@ -206,7 +207,7 @@ SELECT E.CID, C.Title, E.Grade
 FROM StudentRecords SR
 JOIN Enrollment E ON E.SCCWID = SR.CCWID
 JOIN COURSE C ON C.ID = E.CID
-WHERE CCWID = '81981047';
+WHERE SR.CCWID = '81981047';
 
 
 
