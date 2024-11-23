@@ -6,6 +6,7 @@
     $password = '';
     $dbname = "college";
     $port = 3307;
+    
     $conn = new mysqli($servername, $username, $password, $dbname, $port);
 
     if($conn->connect_error){
@@ -17,7 +18,8 @@
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $formType = $_POST["form_type"];
 
-        if($formType == "Professor_Info"){
+        switch ($formType) {
+        case "Professor_Info": {
             $stmt = $conn->prepare("SELECT P.Title, S.Classroom, S.MeetingDays, S.BeginTime, S.EndTime
             FROM Professors P 
             JOIN Section S ON P.SSN = S.PSSN
@@ -45,8 +47,9 @@
             else{
                 echo "This is not a valid SSN\n";
             }
+            break;
         }
-        elseif($formType == "P_Grade_Count"){
+        case "P_Grade_Count": {
             $stmt = $conn->prepare("SELECT E.Grade, Count(*) AS 'Grade Count' 
             FROM Enrollment E 
             WHERE E.CID = ? AND E.SID = ? 
@@ -66,6 +69,10 @@
             else{
                 echo "This is not a valid Section and/or Course Number\n";
             }
+            break;
+        }
+        default:
+            break;
         }
     }
 
