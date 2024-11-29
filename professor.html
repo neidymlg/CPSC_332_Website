@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Professor Queries</title>
+
+    <!-- Link css files -->
+    <link href = "components/navbar.css" rel = "stylesheet">
+
+  </head>
+  <body>
+    <div class = "topnav">
+      <a href="index.html">Home</a>  <!-- Home is active in index.html -->
+      <a class="active" href="professor.html">Professors</a>
+      <a href="student.html">Students</a>
+      <a href="#about">About</a>                    <!-- '#' is a placeholder for the link-->
+    </div>
+    <h1>Enter Your Information</h1>
+
+    <!--For the professors-->
+    <!--For the professors:a. Given the social security number of a professor, list the titles, classrooms, meeting
+    days and time of his/her classes.-->
+    <form action="process.php" method="POST"> 
+      <label for="inputField">Enter Professor SSN:</label><br />
+      <input type="text" id="inputField" name="ssn"/>
+      <br /><br />
+      <button type="submit" name="form_type" value="Professor_Info">Submit</button>
+    </form>
+
+    <!--For the professors:b. Given a course number and a section number, count how many students get each
+distinct grade, i.e. ‘A’, ‘A-’, ‘B+’, ‘B’, ‘B-’, etc.-->
+    <form action="process.php" method="POST"> 
+      <label for="inputField">Enter Course Number:</label><br />
+      <input type="text" id="inputField" name="cno"/><br />
+      <label for="inputField">Enter Section Number:</label><br />
+      <input type="text" id="inputField" name="sno"/>
+      <br /><br />
+      <button type="submit" name="form_type" value="P_Grade_Count">Submit</button>
+    </form>
+
+  </body>
+</html>
