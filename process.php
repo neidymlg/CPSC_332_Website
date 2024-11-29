@@ -71,6 +71,52 @@
             }
             break;
         }
+        case "Section_Info": {
+            // Receive a course number and display all the section information
+            $stmt = $conn->prepare("SELECT S.ID, S.CourseId, S.Classroom, S.MeetingDays, S.BeginTime, S.EndTime,
+            FROM Section S
+            JOIN Course C ON S.CourseID = C.CID 
+            WHERE C.CID = ?;");
+            $stmt->bind_param("i", $_POST["cno"]);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if($result->num_rows > 0){
+                $row = $result->fetch_assoc();
+                printf("Section ID: %s<br>\n", $row["ID"]);
+                printf("Course ID: %s<br>\n", $row["CourseId"]);
+                printf("Classroom: %s<br>\n", $row["Classroom"]);
+                printf("Meeting Days: %s<br>\n", $row["MeetingDays"]);
+                printf("Start Time: %s<br>\n", $row["BeginTime"]);
+                printf("End Time: %s<br><br>\n", $row["EndTime"]);
+
+            }
+            else{
+                echo "This is not a valid Course Number\n";
+            }
+            break;
+        }
+        case "Student_Info": {
+            // Get student CCWID and display student information
+            $stmt = $conn->prepare("SELECT E.CID, E.SectionID, E.Grade,
+            FROM Enrollment E
+            JOIN Student S ON E.SCCWID = S.CCWID 
+            WHERE S.CCWID = ?;");
+            $stmt->bind_param("i", $_POST["ssn"]);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if($result->num_rows > 0){
+                $row = $result->fetch_assoc();
+                printf("Course ID: %s<br>\n", $row["CID"]);
+                printf("Section ID: %s<br>\n", $row["SectionID"]);
+                printf("Grade: %s<br><br>\n", $row["Grade"]);
+            }
+            else{
+                echo "This is not a valid SSN\n";
+            }
+            break;
+        }
         default:
             break;
         }
