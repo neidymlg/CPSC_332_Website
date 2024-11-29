@@ -11,6 +11,7 @@
     // $username = "cs332h13";
     // $password = "B9UaM29z";
     // $dbname = "cs332h13";
+
     $conn = new mysqli($servername, $username, $password, $dbname, $port);
 
     if($conn->connect_error){
@@ -77,23 +78,25 @@
         }
         case "Section_Info": {
             // Receive a course number and display all the section information
-            $stmt = $conn->prepare("SELECT S.ID, S.CourseId, S.Classroom, S.MeetingDays, S.BeginTime, S.EndTime,
-            FROM Section S
-            JOIN Course C ON S.CourseID = C.CID 
-            WHERE C.CID = ?;");
-            $stmt->bind_param("i", $_POST["cno"]);
+            $stmt = $conn->prepare("SELECT S.ID, S.Classroom, S.MeetingDays, S.BeginTime, S.EndTime, COUNT(*) AS 'Student Count'
+            FROM Course C
+            JOIN Section S ON S.CID = C.ID
+            JOIN Enrollment E ON E.SID = S.ID
+            WHERE C.ID = ?
+            GROUP BY S.ID, S.Classroom, S.MeetingDays, S.BeginTime, S.EndTime;");
+            $stmt->bind_param("i", $_POST["cid"]);
             $stmt->execute();
             $result = $stmt->get_result();
 
             if($result->num_rows > 0){
-                $row = $result->fetch_assoc();
-                printf("Section ID: %s<br>\n", $row["ID"]);
-                printf("Course ID: %s<br>\n", $row["CourseId"]);
-                printf("Classroom: %s<br>\n", $row["Classroom"]);
-                printf("Meeting Days: %s<br>\n", $row["MeetingDays"]);
-                printf("Start Time: %s<br>\n", $row["BeginTime"]);
-                printf("End Time: %s<br><br>\n", $row["EndTime"]);
-
+                while ($row = $result->fetch_assoc()) {
+                    printf("Section ID: %s<br>\n", $row["ID"]);
+                    printf("Classroom: %s<br>\n", $row["Classroom"]);
+                    printf("Meeting Days: %s<br>\n", $row["MeetingDays"]);
+                    printf("Start Time: %s<br>\n", $row["BeginTime"]);
+                    printf("End Time: %s<br>\n", $row["EndTime"]);
+                    printf("Amount of Students: %s<br><br>\n", $row["Student Count"]);
+                }
             }
             else{
                 echo "This is not a valid Course Number\n";
@@ -102,19 +105,21 @@
         }
         case "Student_Info": {
             // Get student CCWID and display student information
-            $stmt = $conn->prepare("SELECT E.CID, E.SectionID, E.Grade,
-            FROM Enrollment E
-            JOIN Student S ON E.SCCWID = S.CCWID 
-            WHERE S.CCWID = ?;");
-            $stmt->bind_param("i", $_POST["ssn"]);
+            $stmt = $conn->prepare("SELECT E.CID, C.Title, E.Grade
+            FROM StudentRecords SR
+            JOIN Enrollment E ON E.SCCWID = SR.CCWID
+            JOIN COURSE C ON C.ID = E.CID
+            WHERE SR.CCWID = ?;");
+            $stmt->bind_param("i", $_POST["cwid"]);
             $stmt->execute();
             $result = $stmt->get_result();
 
             if($result->num_rows > 0){
-                $row = $result->fetch_assoc();
+                while ($row = $result->fetch_assoc()) {
                 printf("Course ID: %s<br>\n", $row["CID"]);
-                printf("Section ID: %s<br>\n", $row["SectionID"]);
+                printf("Course Title: %s<br>\n", $row["Title"]);
                 printf("Grade: %s<br><br>\n", $row["Grade"]);
+                }
             }
             else{
                 echo "This is not a valid SSN\n";
