@@ -6,11 +6,6 @@
     $password = '';
     $dbname = "college";
     $port = 3307;
-    
-    // $servername = "mariadb";
-    // $username = "cs332h13";
-    // $password = "B9UaM29z";
-    // $dbname = "cs332h13";
 
     $conn = new mysqli($servername, $username, $password, $dbname, $port);
 
