@@ -1,13 +1,11 @@
 <?php
     //Connecting to server
-    //REMINDER: CHANGE THIS BEFORE SUBMISSION (The one I used was a wamp so this is not going to look like the discord pic)
-    $servername = "localhost";
-    $username = "root";
-    $password = '';
-    $dbname = "college";
-    $port = 3307;
+    $servername = "mariadb";
+    $username = "USERNAME";
+    $password = "PASSWORD";
+    $dbname = "DBNAME";
 
-    $conn = new mysqli($servername, $username, $password, $dbname, $port);
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
     if($conn->connect_error){
         die("Could not connect" . $conn->connect_error);
@@ -103,7 +101,7 @@
             $stmt = $conn->prepare("SELECT E.CID, C.Title, E.Grade
             FROM StudentRecords SR
             JOIN Enrollment E ON E.SCCWID = SR.CCWID
-            JOIN COURSE C ON C.ID = E.CID
+            JOIN Course C ON C.ID = E.CID
             WHERE SR.CCWID = ?;");
             $stmt->bind_param("i", $_POST["cwid"]);
             $stmt->execute();
@@ -117,7 +115,7 @@
                 }
             }
             else{
-                echo "This is not a valid SSN\n";
+                echo "This is not a valid CCWID\n";
             }
             break;
         }
