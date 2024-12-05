@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Queries</title>
+
+    <!-- Link css files -->
+    <link href = "components/navbar.css" rel = "stylesheet">
+
+  </head>
+  <body>
+    <div class = "topnav">
+        <a href="index.html">Home</a>  <!-- Home is active in index.html -->
+        <a href = "professor_ssn.html">Professor SSN</a>
+        <a href = "grade.html">Grades</a>
+        <a href="course.html">Course</a>
+        <a class="active" href="student_info.html">Student Info</a>
+        <a href="#about">About</a>                    <!-- '#' is a placeholder for the link-->
+        
+    </div>
+
+    <h1 style = "margin-left: 20px;">Student Info</h1>
+
+    <h3 style = "margin-bottom: 20px; margin-left: 20px;">Enter a student's CWID and receive all the classes this student takes with their grades</h3>
+
+    
+    <form action = "process.php" method = "POST" style = "margin-left: 20px; margin-top: 20px;">
+        <label for = "inputField">Enter Student CWID:</label><br />
+        <input type = "text" id = "inputField" name = "cwid"/>
+        <br /><br />
+        <button type = "submit" name = "form_type" value = "Student_Info">Submit</button>
+    </form>
+
+  </body>
+</html>

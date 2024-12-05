@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Queries</title>
+
+    <!-- Link css files -->
+    <link href = "components/navbar.css" rel = "stylesheet">
+
+  </head>
+  <body>
+    <div class = "topnav">
+      <a href="index.html">Home</a>  <!-- Home is active in index.html -->
+      <a href = "professor_ssn.html">Professor SSN</a>
+      <a href = "grade.html">Grades</a>
+      <a class="active" href="course.html">Course</a>
+      <a href="student_info.html">Student Info</a>
+      <a href="#about">About</a>                    <!-- '#' is a placeholder for the link-->
+    </div>
+
+    <h1 style = "margin-left: 20px;">Course</h1>
+
+    <h3 style = "margin-bottom: 20px; margin-left: 20px;">Enter a course number and receive details about this section including sections, 
+                                                          classrooms, meeting days and time, and the students in each class</h3>
+
+    <!--For the Students-->
+    <!--For the Students:a. Given a course number list the sections of the course, including the classrooms, the
+    meeting days and time, and the number of students enrolled in each section.-->
+    <form action="process.php" method="POST" style = "margin-left: 20px;"> 
+        <label for="inputField">Enter Course Number:</label><br />
+        <input type="text" id="inputField" name="cid"/>
+        <br /><br />
+        <button type="submit" name="form_type" value="Section_Info">Submit</button>
+    </form>
+
+  </body>
+</html>

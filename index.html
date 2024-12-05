@@ -7,6 +7,7 @@
 
     <!-- Link css files -->
     <link href = "components/navbar.css" rel = "stylesheet">
+    <link hrf = "components/row_of_buttons.css" rel = "stylesheet">
 
   </head>
   <body>
@@ -14,20 +15,30 @@
       <a class="active" href="index.html">Home</a>  <!-- Home is active in index.html -->
       <a href = "professor_ssn.html">Professor SSN</a>
       <a href = "grade.html">Grades</a>
-      <a href="student.html">Students</a>
+      <a href="course.html">Course</a>
+      <a href="student_info.html">Student Info</a>
       <a href="#about">About</a>                    <!-- '#' is a placeholder for the link-->
     </div>
     <h1 style = "margin-left: 20px;">Home Page</h1>
 
-    <!--For the professor SSN query-->
-    <button onclick="window.location.href='professor_ssn.html'" style="font-size: 20px; margin-left: 20px; padding: 10px 20px;">Professor SSN Query</button>
+    
+    
 
-  <!--For the professor SSN query-->
-  <button onclick="window.location.href='grade.html'" style="font-size: 20px; margin-left: 20px; padding: 10px 20px;">Grades Query</button>
+    <div class = "row_of_buttons" style = "margin-top: 20px;">
+      <!--For the professor SSN query-->
+      <button onclick="window.location.href='professor_ssn.html'" style="font-size: 20px; margin-left: 20px; padding: 10px 20px;">Professor SSN Query</button>
 
+      <!--For the grades query-->
+      <button onclick="window.location.href='grade.html'" style="font-size: 20px; margin-left: 20px; padding: 10px 20px;">Grades Query</button>
+    </div>
 
-    <!--For the students-->
-    <button onclick="window.location.href='student.html'" style="font-size: 20px; padding: 10px 20px; margin-left: 20px;">Student Queries</button>
+    <div class = "row_of_buttons" style = "margin-top: 20px;">
+      <!--For the course query-->
+      <button onclick="window.location.href='course.html'" style="font-size: 20px; padding: 10px 20px; margin-left: 20px;">Course Query</button>
 
+      <!--For the student info query-->
+      <button onclick="window.location.href='student_info.html'" style="font-size: 20px; padding: 10px 20px; margin-left: 20px;">Student Info Query</button>
+    </div>
+    
   </body>
 </html>
