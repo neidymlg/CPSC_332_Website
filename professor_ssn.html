@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor SSN</title>
+
+    <!-- Link css files -->
+    <link href = "components/navbar.css" rel = "stylesheet">
+</head>
+<body>
+
+    <div class = "topnav">
+        <a href="index.html">Home</a>  <!-- Home is active in index.html -->
+        <a class="active" href = "professor_ssn.html">Professor SSN</a>
+        <a href = "grade.html">Grades</a>
+        <a href="student.html">Students</a>
+        <a href="#about">About</a>                    <!-- '#' is a placeholder for the link-->
+    </div>
+    
+    <h1 style = "margin-left: 20px;">Professor SSN</h1>
+
+    <h3 style = "margin-bottom: 20px; margin-left: 20px;">Enter a Professor's SSN to see the classes they are teaching</h3>
+
+
+    <!--For the professors-->
+    <!--For the professors:a. Given the social security number of a professor, list the titles, classrooms, meeting
+    days and time of his/her classes.-->
+    <form action="process.php" method="POST" style = "margin-left: 20px;"> 
+        <label for="inputField">Enter Professor SSN:</label><br />
+        <input type="text" id="inputField" name="ssn"/>
+        <br /><br />
+        <button type="submit" name="form_type" value="Professor_Info">Submit</button>
+    </form>
+
+</body>
+</html>
