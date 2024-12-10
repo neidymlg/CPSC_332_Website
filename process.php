@@ -1,9 +1,14 @@
 <?php
+    // Load environment variables from .env file
+    require 'vendor/autoload.php';
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+
     //Connecting to server
-    $servername = "mariadb";
-    $username = "USERNAME";
-    $password = "PASSWORD";
-    $dbname = "DBNAME";
+    $servername = $_ENV['DB_SERVERNAME'];
+    $username = $_ENV['DB_USERNAME'];
+    $password = $_ENV['DB_PASSWORD'];
+    $dbname = $_ENV['DB_NAME'];
 
     $conn = new mysqli($servername, $username, $password, $dbname);
 
